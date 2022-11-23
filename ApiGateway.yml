@@ -1,0 +1,30 @@
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: bookQuery
+          uri: lb://BookQueryService
+          predicates:
+            - Path=/books/**
+        - id: booksCommand
+          uri: lb://BooksCommandService
+          predicates:
+            - Path=/book/**
+        - id: borrowing
+          uri: lb://BorrowingService
+          predicates:
+            - Path=/borrows/**
+        - id: customer
+          uri: lb://CustomerService
+          predicates:
+            - Path=/customers/**
+        - id: review
+          uri: lb://ReviewService
+          predicates:
+            - Path=/reviews/**
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://EurekaServer1:8761/eureka, http://EurekaServer2:8762/eureka
